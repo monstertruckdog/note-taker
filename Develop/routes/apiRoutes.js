@@ -3,7 +3,7 @@
 // These data sources hold arrays of information on table-data, waitinglist, etc.
 
 const apiDb = require('../db/db.json');
-//const waitListData = require('../data/waitinglistData');
+const fs = require('fs');
 
 // ROUTING
 
@@ -14,9 +14,24 @@ module.exports = (app) => {
   // (ex: localhost:PORT/api/admin... they are shown a JSON of the data in the table)
   // ---------------------------------------------------------------------------
 
-  app.get('/api/notes', (req, res) => res.json(apiDb));
+  app.get('/api/notes', (req, res) => {
+      console.log(`--> BEFORE | what is 'apiDb'?:  ${apiDb}`);
+      const notesFinal = JSON.stringify(apiDb);
+      res.json(apiDb);
+      //console.log(`--> AFTER| what is 'apiDb'?:  ${apiDb}`);
+      //res.json(apiDb))
+      
+      fs.readFileSync('../db/db.json', 'utf8', (error, data) => {
+        if (error) {
+            console.error(error)
+        } else {
+            console.log(`--> get notes output:  ${apiDb}`)
+            //res.json(apiDb);
+            return JSON.parse(notesFinal)
+        }
+      });
+  });
 
-  //app.get('/api/waitlist', (req, res) => res.json(waitListData));
 
   // API POST Requests
   // Below code handles when a user submits a form and thus submits data to the server.
@@ -26,18 +41,21 @@ module.exports = (app) => {
   // Then the server saves the data to the apiDb array)
   // ---------------------------------------------------------------------------
 
-  app.post('/api/tables', (req, res) => {
+  app.post('/api/notes', (req, res) => {
     // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
     // It will do this by sending out the value "true" have a table
     // req.body is available since we're using the body parsing middleware
-    if (apiDb.length < 5) {
-      apiDb.push(req.body);
-      res.json(true);
-    } else {
-      waitListData.push(req.body);
-      res.json(false);
+    //if (apiDb.length < 5) {
+      //apiDb.push(req.body);
+      //res.json(true);
+    //} else {
+      //waitListData.push(req.body);
+      //res.json(false);
+    console.log(`POST:  ${variable}`)
+    variable.push(req.body);
+    res.json(true);
     }
-  });
+  );
 
   // I added this below code so you could clear out the table while working with the functionality.
   // Don"t worry about it!
