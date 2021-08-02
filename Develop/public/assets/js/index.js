@@ -34,6 +34,9 @@ const getNotes = () =>
   });
 
 const saveNote = (note) =>
+  // console.log(`--> saveNote function - note contents:  `, note);
+  // console.log(`--> saveNote function - JSON.stringify(note):  `, JSON.stringify(note));
+  // console.log(`--> saveNote function is initiated`)
   fetch('/api/notes', {
     method: 'POST',
     headers: {
@@ -67,10 +70,12 @@ const renderActiveNote = () => {
 };
 
 const handleNoteSave = () => {
+    console.log(`--> handleNoteSave - function has been initiated`)
   const newNote = {
     title: noteTitle.value,
     text: noteText.value,
   };
+  console.log(`--> handleNoteSave - newNote contents:  `, newNote)
   saveNote(newNote).then(() => {
     getAndRenderNotes();
     renderActiveNote();
