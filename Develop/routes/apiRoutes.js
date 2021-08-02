@@ -6,6 +6,7 @@
 const apiDb = require('../db/db.json')
 const fs = require('fs');
 const router = require('express').Router();
+const uuid = require('uuid');
 
 
 // ROUTING
@@ -49,10 +50,17 @@ module.exports = (app) => {
         console.log(`Error while attempting to read file -------->\n${err}`)
       } else {
         // const newNoteData = JSON.parse(req.body);
-          apiDb.push(req.body);
+          // apiDb.push({req.body); // <-- this works
+          apiDb.push({
+            "id": uuid.v4(),
+            "title": req.body.title,
+            "text": req.body.text
+          })
           fs.writeFile('./Develop/db/db.json', JSON.stringify(apiDb), (err) => {
               if (err) {
                   console.log(`Error writing file: ${err}`);
+              } else {
+                console.log(`DATA SAVED SUCCESSFULLY`)
               }
           });
       }
