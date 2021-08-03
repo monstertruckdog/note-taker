@@ -60,7 +60,7 @@ module.exports = (app) => {
           })
           fs.writeFile('./Develop/db/db.json', JSON.stringify(apiDb, undefined, 4), (err) => {
               if (err) {
-                  console.log(`Error writing file: ${err}`);
+                console.log(`Error writing file: ${err}`);
               } else {
                 console.log(`DATA SAVED SUCCESSFULLY`)
               }
@@ -97,29 +97,63 @@ module.exports = (app) => {
     // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
     // It will do this by sending out the value "true" have a table
     // req.body is available since we're using the body parsing middleware
-    console.log(`--> DELETE --> request body:  `, req.body);
-    console.log(`--> DELETE --> request body, id`, req.body.id)
+    console.log(`--> DELETE --> PRE-READ --> request body:  `, req.body);
+    console.log(`--> DELETE --> PRE-READ --> request body.id`, req.body.id)
     fs.readFile('./Develop/db/db.json', 'utf8', (err, data) => {
       if (err) {
         console.log(`Error while attempting to read file -------->\n${err}`)
       } else {
-        console.log(`--> DELETE --> length of file:  `, data.length)
+        const objData = JSON.parse(data)
+        console.log(`--> DELETE --> IN READ --> length of file:  `, objData.length)
+        console.log(`--> DELETE --> IN READ --> objectData:  `, objData);
+        console.log(`--> DELETE --> IN READ --> objectData at index 0:  `, objData[0]);
+        // console.log(`--> DELETE --> IN READ --> objData[0].id`,  objdata[0].id)
+        console.log(`--> DELETE --> IN READ --> objData[0].id:  `, objData[0].id)
+        console.log(`--> DELETE --> IN READ --> objData[1].id:  `,  objData[1].id)
+        console.log(`--> DELETE --> IN READ --> objData[2].id:  `,  objData[2].id)
+        console.log(`--> DELETE --> IN READ --> req.body.id:  `,  req.body.id)
+        console.log(`--> DELETE --> IN READ --> objData[0].id:  ${objData[0].id} <--> req.body.id:  ${req.body.id}`)
+        // const delObjPos = objData.indexOf({ id: req.body.id });
+        // console.log(`--> DELETE --> IN READ --> index of object at id specified:  `, delObjPos)
+        for (let i = 0; i < objData.length; i++) {
+          if (objData[i].id === req.body.id) {
+            console.log(`--> DELETE --> IN READ --> IN LOOP --> INDEX POSITION:  `, [i])
+            console.log(`--> DELETE --> IN READ --> IN LOOP --> req.body.id:  `, req.body.id);
+            console.log(`--> DELETE --> IN READ --> IN LOOP --> objData[i].id:  `, objData[i].id);
+
+            // console.log(`--> DELETE --> IN READ --> IN LOOP --> MATCH SUCCESSFUL`)
+            // const delObjPos = objData.indexOf(objData[i].id);
+            // console.log(`--> DELETE --> IN READ --> IN LOOP --> index of object at id specified:  `, delObjPos)
+            // objData.splice([i], 1);
+            let delNote = objData.splice([i], 1);
+            fs.writeFile('./Develop/db/db.json', JSON.stringify(objData, undefined, 2), (err) => {
+              if (err) {
+                console.log(`Error writing file: `, err);
+              }
+              // } else {
+              //   console.log(`--> DELETE --> DATA DELETED SUCCESSFULLY`);
+              // }
+            })
+            // let delNote = objData.splice([i], 1);
+            console.log = console.log(`--> DELETE --> IN READ --> IN LOOP --> FINAL ARRAY:  `, objData)
+          }
+          
+        }
         // const newNoteData = JSON.parse(req.body);
           // apiDb.push({req.body); // <-- this works
 
-          apiDb.push({
-            "id": uuid.v4(),
-            "title": req.body.title,
-            "text": req.body.text
-          })
-          // fs.writeFile('./Develop/db/db.json', JSON.stringify(apiDb), (err) => {
-          fs.writeFile('./Develop/db/db.json', apiDb, (err) => {
-              if (err) {
-                  console.log(`Error writing file: ${err}`);
-              } else {
-                console.log(`--> DELETE --> DATA SAVED SUCCESSFULLY`)
-              }
-          });
+          // apiDb.push({
+          //   "id": uuid.v4(),
+          //   "title": req.body.title,
+          //   "text": req.body.text
+          // })
+          // fs.writeFile('./Develop/db/db.json', JSON.stringify(apiDb, undefined, 2), (err) => {
+          //     if (err) {
+          //         console.log(`Error writing file: ${err}`);
+          //     } else {
+          //       console.log(`--> DELETE --> DATA SAVED SUCCESSFULLY`)
+          //     }
+          // });
       }
     });
   });
