@@ -18,6 +18,7 @@ module.exports = (app) => {
   // (ex: localhost:PORT/api/admin... they are shown a JSON of the data in the table)
   // ---------------------------------------------------------------------------
 
+  // READ NOTES
   app.get('/api/notes', (req, res) => {
     console.log(`--> app.get starting`)
     // console.log(`--> response?:  `, res)
@@ -28,7 +29,7 @@ module.exports = (app) => {
       let obj = JSON.parse(data);
       res.json(obj);
       })
-});
+    });
 
 
   // API POST Requests
@@ -38,7 +39,8 @@ module.exports = (app) => {
   // (ex. User fills out a reservation request... this data is then sent to the server...
   // Then the server saves the data to the apiDb array)
   // ---------------------------------------------------------------------------
-
+  
+  // CREATE NEW NOTE
   app.post('/api/notes', (req, res) => {
     // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
     // It will do this by sending out the value "true" have a table
@@ -56,7 +58,7 @@ module.exports = (app) => {
             "title": req.body.title,
             "text": req.body.text
           })
-          fs.writeFile('./Develop/db/db.json', JSON.stringify(apiDb), (err) => {
+          fs.writeFile('./Develop/db/db.json', JSON.stringify(apiDb, undefined, 4), (err) => {
               if (err) {
                   console.log(`Error writing file: ${err}`);
               } else {
@@ -90,11 +92,54 @@ module.exports = (app) => {
   // I added this below code so you could clear out the table while working with the functionality.
   // Don"t worry about it!
 
-  app.post('/api/clear', (req, res) => {
-    // Empty out the arrays of data
-    apiDb.length = 0;
-    waitListData.length = 0;
+  // DELETE NOTE
+  app.post(`/api/notes/:id`, (req, res) => {
+    // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
+    // It will do this by sending out the value "true" have a table
+    // req.body is available since we're using the body parsing middleware
+    console.log(`--> DELETE --> request body:  `, req.body);
+    console.log(`--> DELETE --> request body, id`, req.body.id)
+    fs.readFile('./Develop/db/db.json', 'utf8', (err, data) => {
+      if (err) {
+        console.log(`Error while attempting to read file -------->\n${err}`)
+      } else {
+        console.log(`--> DELETE --> length of file:  `, data.length)
+        // const newNoteData = JSON.parse(req.body);
+          // apiDb.push({req.body); // <-- this works
 
-    res.json({ ok: true });
+          apiDb.push({
+            "id": uuid.v4(),
+            "title": req.body.title,
+            "text": req.body.text
+          })
+          // fs.writeFile('./Develop/db/db.json', JSON.stringify(apiDb), (err) => {
+          fs.writeFile('./Develop/db/db.json', apiDb, (err) => {
+              if (err) {
+                  console.log(`Error writing file: ${err}`);
+              } else {
+                console.log(`--> DELETE --> DATA SAVED SUCCESSFULLY`)
+              }
+          });
+      }
+    });
   });
-};
+    // fs.writeFile('./Develop/db/db.json', newNoteData, 'utf8', (err) => {
+    //   if (err) {
+    //     console.log(`Error during file write -------->\n${err}`);
+    //   } else {
+    //     console.log(`Data stored successfully`)
+    //   }
+    // });
+    // if (apiDb.length < 5) {
+    // if (apiDb) {
+    //   // fs.writeFile('./Develop/db/db.json', )
+    //   apiDb.push(req.body);
+    //   res.json(true);
+    // } else {
+    //   waitListData.push(req.body);
+    //   res.json(false);
+    //   console.log(`--> inside app.post api/notes:  ${res.json(req.body)}`)
+    //   apiDb.push(req.body);
+    //   res.json(true);
+    // }
+}
