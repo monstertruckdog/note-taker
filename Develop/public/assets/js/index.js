@@ -31,7 +31,8 @@ const getNotes = () =>
     headers: {
       'Content-Type': 'application/json',
     },
-  });
+  })
+  // .then((response) => response.json())
 
 const saveNote = (note) =>
   // console.log(`--> saveNote function - note contents:  `, note);
@@ -79,16 +80,21 @@ const renderActiveNote = () => {
 };
 
 const handleNoteSave = () => {
-    console.log(`--> handleNoteSave - function has been initiated`)
+  console.log(`--> handleNoteSave - function has been initiated`)
   const newNote = {
     title: noteTitle.value,
     text: noteText.value,
   };
   console.log(`--> handleNoteSave - newNote contents:  `, newNote)
-  saveNote(newNote).then(() => {
-    getAndRenderNotes();
-    renderActiveNote();
+  saveNote(newNote)
+    .then(() => {
+      console.log(`--> LINE 91 | saveNote(newNote).then...`);
+      getAndRenderNotes();
+      renderActiveNote();
+      // document.querySelector('.save-toast').toast('show');
+      // $('.save-toast').toast('show') // TO DO:  add toast to show note was saved
   });
+  console.log(`--> handleNoteSave - function has been completed`)
 };
 
 // Delete the clicked note

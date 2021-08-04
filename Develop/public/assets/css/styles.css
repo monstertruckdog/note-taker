@@ -76,3 +76,14 @@ body {
   padding: 20px;
   cursor: pointer;
 }
+
+.toast-body {
+  position: relative;
+}
+
+.save-toast {
+  position: absolute;
+  background-color: #fff44f !important;
+  color: #342e37 !important;
+  width: fit-content !important;
+}
