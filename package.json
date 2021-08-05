@@ -1,0 +1,25 @@
+{
+  "name": "note-taker",
+  "version": "1.0.0",
+  "description": "App to create and save notes using Express and Node javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "NA"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/monstertruckdog/note-taker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/monstertruckdog/note-taker/issues"
+  },
+  "homepage": "https://github.com/monstertruckdog/note-taker#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security",
+    "node": "^16.3.0",
+    "uuid": "^8.3.2"
+  }
+}
