@@ -9,6 +9,13 @@ body {
   display: none;
 }
 
+.save-toast {
+  position: absolute;
+  background-color: #fff44f !important;
+  color: #342e37 !important;
+  width: fit-content !important;
+}
+
 .icons i {
   margin-left: 15px;
   margin-right: 15px;
@@ -79,11 +86,4 @@ body {
 
 .toast-body {
   position: relative;
-}
-
-.save-toast {
-  position: absolute;
-  background-color: #fff44f !important;
-  color: #342e37 !important;
-  width: fit-content !important;
 }
