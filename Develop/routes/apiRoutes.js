@@ -101,6 +101,7 @@ module.exports = (app) => {
             console.log(`--> DELETE --> IN READ --> IN LOOP --> INDEX POSITION:  `, [i])
             console.log(`--> DELETE --> IN READ --> IN LOOP --> req.body.id:  `, req.body.id);
             console.log(`--> DELETE --> IN READ --> IN LOOP --> objData[i].id:  `, objData[i].id);
+            console.log(`--> TYPES:\n  - apiDb:  ${typeof apiDb}\n  - objData:  ${typeof objData}`);
             console.log(`--> objData | 01 | before splice:  `, objData)
             const delNote = objData.splice([i], 1);
             console.log(`--> objData | -- | delNote value:  `, delNote)
