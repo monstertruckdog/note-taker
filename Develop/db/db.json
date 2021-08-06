@@ -1,32 +1,7 @@
 [
-    {
-        "id": "1b925275-0a3f-4d99-8b6b-6f458d5f359c",
-        "title": "TEST4001",
-        "text": "TEST4001_TEXT"
-    },
-    {
-        "id": "36d5e450-0f78-435e-82aa-ec39c241d80b",
-        "title": "TEST55",
-        "text": "TEST77"
-    },
-    {
-        "id": "b05fb813-9b19-4b20-8fe8-9e7d79204781",
-        "title": "TESTddd",
-        "text": "TESTddd"
-    },
-    {
-        "id": "0d38ea55-fd8e-4119-9dd6-3c302bbd7969",
-        "title": "server test",
-        "text": "server test"
-    },
-    {
-        "id": "ad33b79d-dd0e-433b-9244-ed896b1b7b7a",
-        "title": "server test2",
-        "text": "server test2"
-    },
-    {
-        "id": "127a933e-8a8f-497c-8d06-c02f10c81a1d",
-        "title": "3",
-        "text": "3"
-    }
+  {
+    "id": "7f5e6722-d6b5-4b91-9c87-f5fa88ed0d71",
+    "title": "TEST0000",
+    "text": "TEST0000_TEXT"
+  }
 ]
