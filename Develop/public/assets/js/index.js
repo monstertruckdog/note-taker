@@ -12,17 +12,14 @@ if (window.location.pathname === '/notes') {
   noteList = document.querySelectorAll('.list-container .list-group');
 }
 
-// Show an element
 const show = (elem) => {
   elem.style.display = 'inline';
 };
 
-// Hide an element
 const hide = (elem) => {
   elem.style.display = 'none';
 };
 
-// activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
 const getNotes = () =>
@@ -68,22 +65,17 @@ const renderActiveNote = () => {
 };
 
 const handleNoteSave = () => {
-    console.log(`-->(71) START handleNoteSave`)
   const newNote = {
     title: noteTitle.value,
     text: noteText.value,
   };
-  console.log(`-->(76) START saveNote fetch`)
   saveNote(newNote).then(() => {
-      console.log(`-->(78) END saveNote`)
     getAndRenderNotes();
     renderActiveNote();
   });
 };
 
-// Delete the clicked note
 const handleNoteDelete = (e) => {
-  // Prevents the click listener for the list from being called when the button inside of it is clicked
   e.stopPropagation();
 
   const note = e.target;
@@ -94,20 +86,17 @@ const handleNoteDelete = (e) => {
   }
 
   deleteNote(noteId).then(() => {
-      console.log(`-->(94) inside handleNoteDelete`)
     getAndRenderNotes();
     renderActiveNote();
   });
 };
 
-// Sets the activeNote and displays it
 const handleNoteView = (e) => {
   e.preventDefault();
   activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
   renderActiveNote();
 };
 
-// Sets the activeNote to and empty object and allows the user to enter a new note
 const handleNewNoteView = (e) => {
   activeNote = {};
   renderActiveNote();
@@ -121,20 +110,15 @@ const handleRenderSaveBtn = () => {
   }
 };
 
-// Render the list of note titles
 const renderNoteList = async (notes) => {
-    console.log(`-->(126) START renderNoteList`)
-    
-  let jsonNotes = await notes.json();
-  console.log(`--> -- jsonNotes value:  `, jsonNotes)
-  if (window.location.pathname === '/notes') {
-    noteList.forEach((el) => (el.innerHTML = ''));
-  }
+    let jsonNotes = await notes.json();
+    if (window.location.pathname === '/notes') {
+        noteList.forEach((el) => (el.innerHTML = ''));
+    }
 
-  let noteListItems = [];
+    let noteListItems = [];
 
-  // Returns HTML element with or without a delete button
-  const createLi = (text, delBtn = true) => {
+    const createLi = (text, delBtn = true) => {
     const liEl = document.createElement('li');
     liEl.classList.add('list-group-item');
 
@@ -172,20 +156,13 @@ const renderNoteList = async (notes) => {
 
     noteListItems.push(li);
   });
-
   if (window.location.pathname === '/notes') {
     noteListItems.forEach((note) => noteList[0].append(note));
   }
-  console.log(`-->(177) END renderNoteList`)
 };
 
-// Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => {
-    console.log(`-->(180) START getAndRenderNotes`)
-    console.log(`-->(181) START getNotes`)
     getNotes().then(renderNoteList);
-    console.log(`-->(183) END getNotes`)
-    console.log(`-->(184) END getAndRenderNotes`)
 }
 
 if (window.location.pathname === '/notes') {
