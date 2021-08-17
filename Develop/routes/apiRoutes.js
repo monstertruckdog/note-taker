@@ -28,7 +28,8 @@ module.exports = (app) => {
           console.log(`Error writing file: ${err}`);
           res.send(500)
         } else {
-          res.sendStatus(200)
+          // res.sendStatus(200)
+          res.json(apiDb)
         }
     });
   });
