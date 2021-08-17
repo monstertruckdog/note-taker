@@ -4,3 +4,5 @@ node_modules
 README_instructions.md
 Assets
 db.json
+db/db.json
+Develop/db/db.json
