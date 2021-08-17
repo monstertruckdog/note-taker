@@ -1,2 +1,6 @@
 # note-taker
-App for taking nodes, made with Express.js
+
+
+## Description
+
+The "note" taking application is a common instructional project 
