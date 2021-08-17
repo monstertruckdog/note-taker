@@ -3,4 +3,4 @@ package-lock.json
 node_modules
 README_instructions.md
 Assets
-./Develop/db/db.json
+/Develop/db/db.json
